@@ -1,33 +1,45 @@
-import { Text, SafeAreaView, StyleSheet } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as Font from 'expo-font';
+import { useEffect, useState } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 
-// You can import supported modules from npm
-import { Card } from 'react-native-paper';
+import TelaInicial from './components/TelaInicial';
+import TelaA from './components/TelaA';
+import TelaB from './components/TelaB';
 
-// or any files within the Snack
-import AssetExample from './components/AssetExample';
+const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const [fonteCarregada, setFonteCarregada] = useState(false);
+
+  useEffect(() => {
+    async function carregarFontes() {
+      await Font.loadAsync({
+        'AppFonte': require('./assets/fonts/SpaceMono-Regular.ttf'),
+      });
+      setFonteCarregada(true);
+    }
+
+    carregarFontes();
+  }, []);
+
+  if (!fonteCarregada) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.paragraph}>ojojojo.</Text>
-      <Card>
-        <AssetExample />
-      </Card>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Screen name="Início" component={TelaInicial} />
+        <Tab.Screen name="Tela A" component={TelaA} />
+        <Tab.Screen name="Tela B" component={TelaB} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
-    padding: 8,
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
