@@ -1,12 +1,9 @@
-// Estilos fixos
-// styles/GlobalStyles.js
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   titulo: {
     fontSize: 24,
-    fontWeight: 'bold',
-    fontFamily: 'AppFonte',
+    fontFamily: 'AppFonteBold',
     color: '#333',
     marginBottom: 10,
   },
