@@ -1,13 +1,13 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import * as Font from 'expo-font';
 import { useEffect, useState } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, View, LogBox } from 'react-native';
 
+import { IconHome, IconMountain, IconUser } from './components/IconsSvg';
+import TelaUsuario from './components/TelaUsuario';
 import TelaInicial from './components/TelaInicial';
-import TelaA from './components/TelaA';
-import TelaB from './components/TelaB';
+import TelaPosts from './components/TelaPosts';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,14 +15,21 @@ export default function App() {
   const [fonteCarregada, setFonteCarregada] = useState(false);
 
   useEffect(() => {
-    async function carregarFontes() {
-      await Font.loadAsync({
-        'AppFonte': require('./assets/fonts/SpaceMono-Regular.ttf'),
-      });
-      setFonteCarregada(true);
-    }
+    const carregarFontes = async () => {
+      try {
+        await Font.loadAsync({
+          AppFonte: require('./assets/fonts/SpaceMono-Regular.ttf'),
+        });
+        setFonteCarregada(true);
+      } catch (error) {
+        console.warn('Erro ao carregar fonte:', error);
+      }
+    };
 
     carregarFontes();
+
+    // Ignorar avisos desnecessários (opcional)
+    LogBox.ignoreLogs(['Remote debugger']); 
   }, []);
 
   if (!fonteCarregada) {
@@ -36,9 +43,27 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Início" component={TelaInicial} />
-        <Tab.Screen name="Tela A" component={TelaA} />
-        <Tab.Screen name="Tela B" component={TelaB} />
+        <Tab.Screen
+          name="Início"
+          component={TelaInicial}
+          options={{
+            tabBarIcon: ({ color, size }) => <IconHome color={color} size={size} />,
+          }}
+        />
+        <Tab.Screen
+          name="Posts"
+          component={TelaPosts}
+          options={{
+            tabBarIcon: ({ color, size }) => <IconMountain color={color} size={size} />,
+          }}
+        />
+        <Tab.Screen
+          name="Conta"
+          component={TelaUsuario}
+          options={{
+            tabBarIcon: ({ color, size }) => <IconUser color={color} size={size} />,
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

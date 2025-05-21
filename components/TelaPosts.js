@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import AppText from './AppText';
+import GlobalStyles from '../GlobalStyles';
 
-export default function TelaB() {
+export default function TelaPosts() {
   return (
     <View style={styles.container}>
-      <AppText>Você está na Tela B</AppText>
+      <Text style={GlobalStyles.texto}>Você está na Tela de Posts</Text>
     </View>
   );
 }

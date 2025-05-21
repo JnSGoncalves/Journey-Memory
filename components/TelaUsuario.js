@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import AppText from './AppText';
+import GlobalStyles from '../GlobalStyles';
 
-export default function TelaA() {
+export default function TelaUsuario() {
   return (
     <View style={styles.container}>
-      <AppText>Você está na Tela A</AppText>
+      <Text style={GlobalStyles.texto}>Você está na Tela de Usuário</Text>
     </View>
   );
 }

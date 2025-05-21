@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
-import AppText from './AppText';
+import { View, Image, Text, StyleSheet } from 'react-native';
 import GlobalStyles from '../GlobalStyles';
 
 export default function TelaInicial() {
@@ -11,10 +10,10 @@ export default function TelaInicial() {
         style={{ width: 200, height: 200 }}
       />
 
-      <AppText style={GlobalStyles.texto}>
+      <Text style={GlobalStyles.texto}>
         {'Bem-vindo ao Memory Journey!\n' + 
         'Compartilhe aqui suas melhores memórias de viagens!'}
-      </AppText>
+      </Text>
     </View>
   );
 }
