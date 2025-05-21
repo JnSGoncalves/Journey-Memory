@@ -1,11 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import AppText from './AppText';
+import GlobalStyles from '../GlobalStyles';
 
 export default function TelaInicial() {
   return (
     <View style={styles.container}>
-      <AppText>Bem-vindo à Tela Inicial</AppText>
+      <Image
+        source={require('../assets/images/memory-journey-logo.png')}
+        style={{ width: 200, height: 200 }}
+      />
+
+      <AppText style={GlobalStyles.texto}>
+        {'Bem-vindo ao Memory Journey!\n' + 
+        'Compartilhe aqui suas melhores memórias de viagens!'}
+      </AppText>
     </View>
   );
 }
