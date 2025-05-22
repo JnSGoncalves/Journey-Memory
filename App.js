@@ -19,6 +19,7 @@ export default function App() {
       try {
         await Font.loadAsync({
           AppFonte: require('./assets/fonts/SpaceMono-Regular.ttf'),
+          AppFonteBold: require('./assets/fonts/SpaceMono-Bold.ttf'),
         });
         setFonteCarregada(true);
       } catch (error) {
