@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator, Alert, Vibration } from 'react-native';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../services/firebaseConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -82,6 +82,7 @@ export default function TelaPosts({ navigation }) {
         style={[styles.botaoAdicionar, !usuarioLogado && styles.botaoDesabilitado]}
         onPress={() => {
           if (!usuarioLogado) {
+            Vibration.vibrate();
             Alert.alert('Acesso restrito', 'Faça login para adicionar um post.');
             return;
           }
