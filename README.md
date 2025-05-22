@@ -1,50 +1,75 @@
-# Welcome to your Expo app 👋
+# 📌 Journey Memory
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<p align="center">
+  <img src="assets\images\page_inicial.png" alt="Memory Journey Logo" height="300">
+</p>
 
-## Get started
+Este é o repositório de um projeto de aplicativo mobile desenvolvido em React Native. Journey Memory é um aplicativo com o objetivo de ser um ponto central de compartilhamento de fotos e comentários sobre viagens realizados por seus usuários.
 
-1. Install dependencies
+Este é um projeto [Expo](https://expo.dev) criado com [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+
+## 🛠️ Utilização
+
+1. Instale as dependências
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. Inicie o aplicativo
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## 📃 Descrição do projeto
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Este projeto utiliza um banco de dados Firebase Firestore para armazenar os dados de usuários e postagens realizadas no app, além da utilização da API Cloudinary para realização do upload das fotos nas postagens, que são visualizadas através de suas urls.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🔨 Recursos
 
-## Get a fresh project
+- Cadastro / Login de usuários
+- Listagem de todos as postagens
+- Visualização de uma postagem
+- Criação de uma postagem
+- Exclusão de uma postagem realizada
 
-When you're ready, run:
+### O projeto é separado em 5 telas:
+#### Tela Inicial:
 
-```bash
-npm run reset-project
-```
+<p align="center">
+   <img src="assets\images\tela_inicial_full.png" alt="Memory Journey Logo" height="500">
+</p>
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+#### Tela de postagens:
 
-## Learn more
+<p align="center">
+   <img src="assets\images\tela_posts.jpg" alt="Memory Journey Logo" height="500">
+</p>
 
-To learn more about developing your project with Expo, look at the following resources:
+#### Tela de Descrição de postagens:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+<p align="center">
+   <img src="assets\images\tela_desc-posts.jpg" alt="Memory Journey Logo" height="500">
+</p>
 
-## Join the community
+#### Tela de Usuário:
 
-Join our community of developers creating universal apps.
+<p align="center">
+   <img src="assets\images\tela_login.jpg" alt="Memory Journey Logo" height="500">
+   <img src="assets\images\tela_logado.jpg" alt="Memory Journey Logo" height="500">
+</p>
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+#### Criação de Posts:
+
+<p align="center">
+   <img src="assets\images\tela_novo-post.jpg" alt="Memory Journey Logo" height="500">
+</p>
+
+
+## ➕ Ferramentas utilizadas
+
+- Expo
+- Firebase Firestore
+- Cloudinary API
+- [Phosphor Icons]('https://phosphoricons.com/') (Icones SVG)
