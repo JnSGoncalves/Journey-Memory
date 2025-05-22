@@ -9,7 +9,6 @@ export default StyleSheet.create({
   },
   texto: {
     fontSize: 16,
-    textAlign: 'center',
     fontFamily: 'AppFonte',
     color: '#555',
     lineHeight: 22,

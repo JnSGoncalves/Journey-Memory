@@ -58,7 +58,7 @@ export default function TelaPosts({ navigation }) {
   }
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={() => {/* navegação para detalhes */}}>
+    <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('TelaDetalhesPost', { post: item })}>
       {item.imagens?.[0] && <Image source={{ uri: item.imagens[0] }} style={styles.imagem} />}
       <View style={styles.info}>
         <Text style={styles.titulo}>{item.nome}</Text>

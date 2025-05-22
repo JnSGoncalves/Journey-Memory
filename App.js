@@ -10,6 +10,7 @@ import TelaUsuario from './components/TelaUsuario';
 import TelaNovoPost from './components/TelaNovoPost';
 import TelaInicial from './components/TelaInicial';
 import TelaPosts from './components/TelaPosts';
+import TelaDetalhesPost from './components/TelaDetalhesPost';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -76,6 +77,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="TelaNovoPost" component={TelaNovoPost} />
+        <Stack.Screen name="TelaDetalhesPost" component={TelaDetalhesPost} />
       </Stack.Navigator>
     </NavigationContainer>
   );

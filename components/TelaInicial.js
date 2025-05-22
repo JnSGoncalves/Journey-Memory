@@ -10,7 +10,7 @@ export default function TelaInicial() {
         style={{ width: 200, height: 200 }}
       />
 
-      <Text style={GlobalStyles.texto}>
+      <Text style={[styles.texto, GlobalStyles.texto]}>
         {'Bem-vindo ao Memory Journey!\n' + 
         'Compartilhe aqui suas melhores memórias de viagens!'}
       </Text>
@@ -24,4 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  texto: {
+    textAlign: 'center',
+  }
 });
