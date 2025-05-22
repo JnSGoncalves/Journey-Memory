@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import GlobalStyles from '../GlobalStyles';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { db } from '../services/firebaseConfig'
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 
@@ -13,6 +14,28 @@ export default function TelaUsuario() {
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmSenha, setConfirmSenha] = useState('');
+
+  useEffect(() => {
+    async function verificarLoginSalvo() {
+      try {
+        const dadosSalvos = await AsyncStorage.getItem('usuarioLogado');
+        if (dadosSalvos) {
+          const usuarioLogado = JSON.parse(dadosSalvos);
+          setNome(usuarioLogado.nome);
+          setUsuario(usuarioLogado.usuario);
+          setLogado(true);
+        }
+      } catch (error) {
+        console.error('Erro ao verificar login salvo:', error);
+      }
+    }
+
+    verificarLoginSalvo();
+  }, []);
+
+  async function setLogout(){
+    await AsyncStorage.removeItem('usuarioLogado');
+  }
 
   async function handleLoginOuCadastro() {
     if (modoCadastro) {
@@ -73,7 +96,9 @@ export default function TelaUsuario() {
         if (!querySnapshot.empty) {
           const dados = querySnapshot.docs[0].data();
           setNome(dados.nome);
+          await AsyncStorage.setItem('usuarioLogado', JSON.stringify({ uid: dados.id, nome: dados.nome, usuario: dados.usuario }));
           setLogado(true);
+
         } else {
           Alert.alert('Erro', 'Usuário ou senha incorretos.');
         }
@@ -84,6 +109,23 @@ export default function TelaUsuario() {
       }
     }
   }
+
+  // const criarPostDeTeste = async () => {
+  //   try {
+  //     const docRef = await addDoc(collection(db, 'posts'), {
+  //       nome: 'Post de Teste',
+  //       comentario: 'Esse é um comentário de teste.',
+  //       localizacao: 'São Paulo - SP',
+  //       imagens: ['https://i.imgur.com/s2CLe9D.jpeg', 'https://via.placeholder.com/150'],
+  //       uidUser: 'teste_uid',
+  //       data: '2024-12-15', // <-- data da viagem fornecida pelo usuário
+  //     });
+  //     console.log('Post de teste criado com ID:', docRef.id);
+  //   } catch (error) {
+  //     console.error('Erro ao criar post de teste:', error);
+  //   }
+  // };
+
 
   if (logado) {
     return (
@@ -102,6 +144,8 @@ export default function TelaUsuario() {
               setUsuario('');
               setSenha('');
               setConfirmSenha('');
+              setLogout();
+              // criarPostDeTeste();
             }}
           />
         </View>
