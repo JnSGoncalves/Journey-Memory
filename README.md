@@ -1,4 +1,4 @@
-# 📌 Journey Memory
+# 📌 Memory Journey
 
 <p align="center">
   <img src="assets\images\page_inicial.png" alt="Memory Journey Logo" height="300">
