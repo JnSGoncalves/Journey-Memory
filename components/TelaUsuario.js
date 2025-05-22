@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import GlobalStyles from '../GlobalStyles';
 
@@ -14,6 +14,24 @@ export default function TelaUsuario() {
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmSenha, setConfirmSenha] = useState('');
+
+  useEffect(() => {
+    async function verificarLoginSalvo() {
+      try {
+        const dadosSalvos = await AsyncStorage.getItem('usuarioLogado');
+        if (dadosSalvos) {
+          const usuarioLogado = JSON.parse(dadosSalvos);
+          setNome(usuarioLogado.nome);
+          setUsuario(usuarioLogado.usuario);
+          setLogado(true);
+        }
+      } catch (error) {
+        console.error('Erro ao verificar login salvo:', error);
+      }
+    }
+
+    verificarLoginSalvo();
+  }, []);
 
   async function setLogout(){
     await AsyncStorage.removeItem('usuarioLogado');
@@ -107,7 +125,6 @@ export default function TelaUsuario() {
   //     console.error('Erro ao criar post de teste:', error);
   //   }
   // };
-
 
 
   if (logado) {
