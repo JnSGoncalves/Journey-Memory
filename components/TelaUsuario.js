@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import GlobalStyles from '../GlobalStyles';
 
+import { db } from '../services/firebaseConfig'
+import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
+
 export default function TelaUsuario() {
   const [logado, setLogado] = useState(false);
   const [modoCadastro, setModoCadastro] = useState(false);
@@ -11,7 +14,7 @@ export default function TelaUsuario() {
   const [senha, setSenha] = useState('');
   const [confirmSenha, setConfirmSenha] = useState('');
 
-  function handleLoginOuCadastro() {
+  async function handleLoginOuCadastro() {
     if (modoCadastro) {
       if (!nome.trim() || !usuario.trim() || !senha.trim() || !confirmSenha.trim()) {
         Alert.alert('Erro', 'Por favor, preencha todos os campos.');
@@ -25,13 +28,60 @@ export default function TelaUsuario() {
         Alert.alert('Erro', 'As senhas não conferem.');
         return;
       }
-      setLogado(true);
+
+      try {
+        // Verifica se já existe um usuário com o mesmo nome de usuário
+        const usuariosRef = collection(db, 'usuarios');
+        const q = query(usuariosRef, where('usuario', '==', usuario));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          Alert.alert('Erro', 'Este nome de usuário já está em uso.');
+          return;
+        }
+
+        // Cria novo usuário
+        await addDoc(usuariosRef, {
+          nome,
+          usuario,
+          senha
+        });
+
+        Alert.alert('Sucesso', 'Cadastro realizado! Faça login.');
+        setModoCadastro(false);
+        setNome('');
+        setUsuario('');
+        setSenha('');
+        setConfirmSenha('');
+      } catch (error) {
+        console.error(error);
+        Alert.alert('Erro', 'Falha ao cadastrar usuário.');
+      }
+
     } else {
+      // Login
       if (!usuario.trim() || !senha.trim()) {
         Alert.alert('Erro', 'Por favor, preencha usuário e senha.');
         return;
       }
-      setLogado(true);
+
+      try {
+        const usuariosRef = collection(db, 'usuarios');
+        const q = query(usuariosRef, where('usuario', '==', usuario), where('senha', '==', senha));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          const dados = querySnapshot.docs[0].data();
+          setNome(dados.nome);
+          setLogado(true);
+        } else {
+          Alert.alert('Erro', 'Usuário ou senha incorretos.');
+        }
+
+      } catch (error) {
+        console.error(error);
+        Alert.alert('Erro', 'Falha ao fazer login.');
+      }
     }
   }
 
@@ -39,11 +89,26 @@ export default function TelaUsuario() {
     return (
       <View style={styles.container}>
         <Text style={[styles.titulo, GlobalStyles.titulo]}>
-          Bem-vindo, {nome || usuario}!
+          Bem-vindo, {nome}!
         </Text>
+
+        <View style={{ marginTop: 24 }}>
+          <Button
+            title="Sair"
+            color="#d9534f"
+            onPress={() => {
+              setLogado(false);
+              setNome('');
+              setUsuario('');
+              setSenha('');
+              setConfirmSenha('');
+            }}
+          />
+        </View>
       </View>
     );
   }
+
 
   return (
     <View style={styles.container}>
