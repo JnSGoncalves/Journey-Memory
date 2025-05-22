@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Image, ScrollView, Text, Alert, StyleSheet } from 'react-native';
+import { Vibration, TextInput, Button, Image, ScrollView, Text, Alert, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import axios from 'axios';
@@ -107,6 +107,7 @@ export default function TelaNovoPost() {
 
   const criarPost = async () => {
     if (imagens.length === 0) {
+      Vibration.vibrate();
       return Alert.alert('Imagens obrigatórias', 'Selecione pelo menos uma imagem para criar o post.');
     }
 
@@ -120,20 +121,22 @@ export default function TelaNovoPost() {
       await addDoc(collection(db, 'posts'), {
         nome,
         localizacao,
-        data,
+        data: data ? data.toLocaleDateString() : null,
         comentario,
         imagens: urlsImagens,
         nomeUsuario: nomeUsuario || 'desconhecido',
       });
 
+      Vibration.vibrate();
       Alert.alert('Sucesso', 'Post criado com sucesso!');
       setNome('');
       setLocalizacao('');
-      setData('');
+      setData(null);
       setComentario('');
       setImagens([]);
     } catch (e) {
       console.error(e);
+      Vibration.vibrate();
       Alert.alert('Erro', 'Falha ao criar o post');
     } finally {
       setEnviando(false);
