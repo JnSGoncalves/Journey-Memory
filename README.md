@@ -4,7 +4,7 @@
   <img src="assets\images\page_inicial.png" alt="Memory Journey Logo" height="300">
 </p>
 
-Este é o repositório de um projeto de aplicativo mobile desenvolvido em React Native. Journey Memory é um aplicativo com o objetivo de ser um ponto central de compartilhamento de fotos e comentários sobre viagens realizados por seus usuários.
+Este é o repositório de um projeto de aplicativo mobile desenvolvido em React Native. Memory Journey é um aplicativo com o objetivo de ser um ponto central de compartilhamento de fotos e comentários sobre viagens realizados por seus usuários.
 
 Este é um projeto [Expo](https://expo.dev) criado com [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
